@@ -103,6 +103,7 @@ namespace hackhaton_API.Migrations
                     b.ToTable("Korisnik_Home");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("hackhaton_API.Models.Kuhalo", b =>
                 {
                     b.Property<int>("Id")
@@ -204,6 +205,8 @@ namespace hackhaton_API.Migrations
                     b.ToTable("Prozori");
                 });
 
+=======
+>>>>>>> a143de5de3cb995039612630ca49e7e9b47507b2
             modelBuilder.Entity("hackhaton_API.Models.Tip", b =>
                 {
                     b.Property<int>("Id")
