@@ -16,6 +16,10 @@ namespace hackhaton_API.Data
 
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 15e330f3237f04d935425271252fc0e7cb36b099
 
         public ApplicationDbContext(
            DbContextOptions options) : base(options)
