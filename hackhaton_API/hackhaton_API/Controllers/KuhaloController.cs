@@ -9,49 +9,56 @@ namespace hackhaton_API.Controllers
     //[Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
-    public class TipController : ControllerBase
+    public class KuhaloController : ControllerBase
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public TipController(ApplicationDbContext dbContext)
+        public KuhaloController(ApplicationDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
 
 
         [HttpPost]
-        public Tip Snimi([FromBody] TipAddVM x)
+        public ActionResult Snimi([FromBody] KuhaloAddVM x)
         {
-            Tip? objekat;
+            Kuhalo? objekat;
 
-            if (x.id == 0)
+            if (x.Id == 0)
             {
-                objekat = new Tip();
+                objekat = new Kuhalo();
                 _dbContext.Add(objekat);
             }
             else
             {
-                objekat = _dbContext.Tip.Find(x.id);
+                objekat = _dbContext.Kuhalo.Find(x.Id);
             }
 
-            objekat.Id = x.id;
-            objekat.Naziv = x.naziv;
-            objekat.Opis = x.opis;
-           
+            objekat.Id = x.Id;
+            objekat.Naziv = x.Naziv;
+            objekat.Opis = x.Opis;
+            objekat.StanjeStruje = x.StanjeStruje;
+            objekat.VrijemePaljenja = x.VrijemePaljenja;
+            objekat.VrijemeGasenja = x.VrijemeGasenja;
+            objekat.HomeId = x.HomeId;
+            objekat.TipId = x.TipId;
 
             _dbContext.SaveChanges();
-            return objekat;
+            return Ok(objekat);
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var data = _dbContext.Tip
+            var data = _dbContext.Kuhalo
                 .OrderBy(s => s.Id)
-                .Select(s => new TipGetVM
+                .Select(s => new KuhaloGetVM
                 {
-                  opis =s.Opis,
-                  naziv=s.Naziv
+                  Opis =s.Opis,
+                  Naziv =s.Naziv,
+                  StanjeStruje=s.StanjeStruje,
+                  VrijemeGasenja=s.VrijemeGasenja,
+                  VrijemePaljenja=s.VrijemePaljenja
 
                 })
                 .AsQueryable();
@@ -63,7 +70,7 @@ namespace hackhaton_API.Controllers
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
-            Tip? obj = _dbContext.Tip.Find(id);
+            Kuhalo? obj = _dbContext.Kuhalo.Find(id);
 
             if (obj == null)
                 return BadRequest("pogresan ID");

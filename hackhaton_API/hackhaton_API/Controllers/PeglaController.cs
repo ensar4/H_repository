@@ -9,49 +9,53 @@ namespace hackhaton_API.Controllers
     //[Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
-    public class TipController : ControllerBase
+    public class PeglaController : ControllerBase
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public TipController(ApplicationDbContext dbContext)
+        public PeglaController(ApplicationDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
 
 
         [HttpPost]
-        public Tip Snimi([FromBody] TipAddVM x)
+        public ActionResult Snimi([FromBody] PeglaAddVM x)
         {
-            Tip? objekat;
+            Pegla? objekat;
 
-            if (x.id == 0)
+            if (x.Id == 0)
             {
-                objekat = new Tip();
+                objekat = new Pegla();
                 _dbContext.Add(objekat);
             }
             else
             {
-                objekat = _dbContext.Tip.Find(x.id);
+                objekat = _dbContext.Pegla.Find(x.Id);
             }
 
-            objekat.Id = x.id;
-            objekat.Naziv = x.naziv;
-            objekat.Opis = x.opis;
-           
+            objekat.Id = x.Id;
+            objekat.Naziv = x.Naziv;
+            objekat.Opis = x.Opis;
+            objekat.StanjeStruje = x.StanjeStruje;
+            objekat.HomeId = x.HomeId;
+            objekat.TipId = x.TipId;
 
             _dbContext.SaveChanges();
-            return objekat;
+            return Ok(objekat);
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var data = _dbContext.Tip
+            var data = _dbContext.Pegla
                 .OrderBy(s => s.Id)
-                .Select(s => new TipGetVM
+                .Select(s => new PeglaGetVM
                 {
-                  opis =s.Opis,
-                  naziv=s.Naziv
+                  Id=s.Id,
+                  Opis =s.Opis,
+                  Naziv=s.Naziv,
+                  StanjeStruje=s.StanjeStruje
 
                 })
                 .AsQueryable();
@@ -63,7 +67,7 @@ namespace hackhaton_API.Controllers
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
-            Tip? obj = _dbContext.Tip.Find(id);
+            Pegla? obj = _dbContext.Pegla.Find(id);
 
             if (obj == null)
                 return BadRequest("pogresan ID");

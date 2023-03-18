@@ -9,50 +9,49 @@ namespace hackhaton_API.Controllers
     //[Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
-    public class TipController : ControllerBase
+    public class SenzorDimaController : ControllerBase
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public TipController(ApplicationDbContext dbContext)
+        public SenzorDimaController(ApplicationDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
 
 
         [HttpPost]
-        public Tip Snimi([FromBody] TipAddVM x)
+        public ActionResult Snimi([FromBody] SenzorDimaAddVM x)
         {
-            Tip? objekat;
+            SenzorDima? objekat;
 
-            if (x.id == 0)
+            if (x.Id == 0)
             {
-                objekat = new Tip();
+                objekat = new SenzorDima();
                 _dbContext.Add(objekat);
             }
             else
             {
-                objekat = _dbContext.Tip.Find(x.id);
+                objekat = _dbContext.SenzorDima.Find(x.Id);
             }
 
-            objekat.Id = x.id;
-            objekat.Naziv = x.naziv;
-            objekat.Opis = x.opis;
-           
+            objekat.Id = x.Id;
+            objekat.Stanje = x.Stanje;
+            objekat.HomeId = x.HomeId;
+            objekat.TipId = x.TipId;
 
             _dbContext.SaveChanges();
-            return objekat;
+            return Ok(objekat);
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var data = _dbContext.Tip
+            var data = _dbContext.SenzorDima
                 .OrderBy(s => s.Id)
-                .Select(s => new TipGetVM
+                .Select(s => new SenzorDimaGetVM
                 {
-                  opis =s.Opis,
-                  naziv=s.Naziv
-
+                  Id=s.Id,
+                  Stanje=s.Stanje,
                 })
                 .AsQueryable();
             return Ok(data.Take(100).ToList());
@@ -63,7 +62,7 @@ namespace hackhaton_API.Controllers
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
-            Tip? obj = _dbContext.Tip.Find(id);
+            SenzorDima? obj = _dbContext.SenzorDima.Find(id);
 
             if (obj == null)
                 return BadRequest("pogresan ID");
