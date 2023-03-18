@@ -9,50 +9,49 @@ namespace hackhaton_API.Controllers
     //[Authorize]
     [ApiController]
     [Route("[controller]/[action]")]
-    public class TipController : ControllerBase
+    public class ProzoriController : ControllerBase
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public TipController(ApplicationDbContext dbContext)
+        public ProzoriController(ApplicationDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
 
 
         [HttpPost]
-        public Tip Snimi([FromBody] TipAddVM x)
+        public ActionResult Snimi([FromBody] ProzoriAddVM x)
         {
-            Tip? objekat;
+            Prozori? objekat;
 
-            if (x.id == 0)
+            if (x.Id == 0)
             {
-                objekat = new Tip();
+                objekat = new Prozori();
                 _dbContext.Add(objekat);
             }
             else
             {
-                objekat = _dbContext.Tip.Find(x.id);
+                objekat = _dbContext.Prozori.Find(x.Id);
             }
 
-            objekat.Id = x.id;
-            objekat.Naziv = x.naziv;
-            objekat.Opis = x.opis;
-           
+            objekat.Id = x.Id;
+            objekat.Naziv = x.Naziv;
+            objekat.HomeId = x.HomeId;
+            objekat.TipId = x.TipId;
 
             _dbContext.SaveChanges();
-            return objekat;
+            return Ok(objekat);
         }
 
         [HttpGet]
         public ActionResult GetAll()
         {
-            var data = _dbContext.Tip
+            var data = _dbContext.Prozori
                 .OrderBy(s => s.Id)
-                .Select(s => new TipGetVM
+                .Select(s => new ProzoriGetVM
                 {
-                  opis =s.Opis,
-                  naziv=s.Naziv
-
+                  Id=s.Id,
+                  Naziv=s.Naziv,
                 })
                 .AsQueryable();
             return Ok(data.Take(100).ToList());
@@ -63,7 +62,7 @@ namespace hackhaton_API.Controllers
         [HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
-            Tip? obj = _dbContext.Tip.Find(id);
+            Prozori? obj = _dbContext.Prozori.Find(id);
 
             if (obj == null)
                 return BadRequest("pogresan ID");
