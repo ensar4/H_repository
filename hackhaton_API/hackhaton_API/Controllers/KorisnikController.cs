@@ -67,22 +67,23 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
         [HttpPost]
         public ActionResult Snimi([FromBody] KorisnikAddVM x)
         {
+
             Korisnik? objekat;
-            Home? objekat2;
+          
 
             if (x.id == 0)
             {
+                
                 objekat = new Korisnik();
                 _dbContext.Add(objekat);
-                objekat2 = new Home();
-                _dbContext.Add(objekat2);
+               
             }
             else
             {
                 objekat = _dbContext.Korisnik.Find(x.id);
-                objekat2 = _dbContext.Home.Find(x.id);
-                
             }
+
+           
 
             objekat.Id = x.id;
             objekat.Ime = x.ime;
@@ -91,10 +92,9 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
             objekat.Password = x.password;
             objekat.Username = x.username;
             objekat.BrojTelefona = x.brojTelefona;
+            objekat.HomeId=x.kucaId;
 
-            objekat2.Adresa = x.adresaKuce;
-            objekat2.Naziv = x.nazivKuce;
-            objekat2.Id = x.id;
+          
 
             _dbContext.SaveChanges();
             return Ok();
@@ -111,7 +111,9 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
                     ime=s.Ime,
                     prezime=s.Prezime,
                     brojTelefona=s.BrojTelefona,
-                    mail=s.Mail
+                    mail=s.Mail,
+                    adresaKuce=s.Home.Adresa,
+                    username=s.Username,
 
                 })
                 .AsQueryable();
