@@ -2,6 +2,7 @@ using hackhaton_API.Data;
 using Microsoft.EntityFrameworkCore;
 
 
+
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false)
     .Build();
@@ -28,6 +29,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
+
 
 app.UseCors(
     options => options
