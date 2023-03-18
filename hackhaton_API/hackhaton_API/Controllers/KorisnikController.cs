@@ -25,13 +25,14 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Korisnik> Login([FromBody] LoginVM x)
+        public ActionResult<KorisnikGetVM> Login([FromBody] LoginVM x)
         {
             //1- provjera logina
             Korisnik? logiraniKorisnik = _dbContext.Korisnik
                 .FirstOrDefault(k =>
                 k.Username != null && k.Username == x.Username && k.Password == x.Password);
 
+      
             //var usernameProvjera = _dbContext.Korisnik.Select(k=>k.Username).FirstOrDefault();
             //if(usernameProvjera!=x.Username)
             //{
@@ -49,24 +50,38 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
                 //pogresan username i password
                 return BadRequest();
             }
-           
 
-            return Ok();
+            var korisnikHome = _dbContext.Korisnik.Where(s => s.Id == logiraniKorisnik.Id).Select(s => s.HomeId).FirstOrDefault();
+            var home = _dbContext.Home.Where(s => s.Id == korisnikHome).Select(s => s.Adresa).FirstOrDefault();
+            var kucaID = _dbContext.Home.Where(s => s.Id == korisnikHome).Select(s => s.Id).FirstOrDefault();
+
+            return new KorisnikGetVM
+            {
+                ime = logiraniKorisnik.Ime,
+                prezime = logiraniKorisnik.Prezime,
+                adresaKuce = home,
+                kucaId=kucaID
+            };
         }
 
         [HttpPost]
         public ActionResult Snimi([FromBody] KorisnikAddVM x)
         {
             Korisnik? objekat;
+            Home? objekat2;
 
             if (x.id == 0)
             {
                 objekat = new Korisnik();
                 _dbContext.Add(objekat);
+                objekat2 = new Home();
+                _dbContext.Add(objekat2);
             }
             else
             {
                 objekat = _dbContext.Korisnik.Find(x.id);
+                objekat2 = _dbContext.Home.Find(x.id);
+                
             }
 
             objekat.Id = x.id;
@@ -77,9 +92,12 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
             objekat.Username = x.username;
             objekat.BrojTelefona = x.brojTelefona;
 
+            objekat2.Adresa = x.adresaKuce;
+            objekat2.Naziv = x.nazivKuce;
+            objekat2.Id = x.id;
 
             _dbContext.SaveChanges();
-            return Ok(objekat);
+            return Ok();
         }
 
         [HttpGet]

@@ -9,5 +9,9 @@
         public string mail { get; set; }
         public string username { get; set; }
         public string password { get; set; }
+
+        public int kucaId { get; set; }
+        public string nazivKuce { get; set; }
+        public string adresaKuce { get; set; }
     }
 }

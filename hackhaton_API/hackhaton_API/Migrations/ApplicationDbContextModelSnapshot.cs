@@ -95,6 +95,9 @@ namespace hackhaton_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Ime")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -117,37 +120,12 @@ namespace hackhaton_API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("HomeId");
+
                     b.ToTable("Korisnik");
                 });
 
-            modelBuilder.Entity("hackhaton_API.Models.Korisnik_Home", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("HomeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KorisnikId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HomeId");
-
-                    b.HasIndex("KorisnikId");
-
-                    b.ToTable("Korisnik_Home");
-                });
-
-<<<<<<< HEAD
-            modelBuilder.Entity("hackhaton_API.Models.MotionSensor", b =>
-=======
             modelBuilder.Entity("hackhaton_API.Models.Kuhalo", b =>
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -162,7 +140,46 @@ namespace hackhaton_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("StanjeStruje")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TipId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("VrijemeGasenja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("VrijemePaljenja")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
+
+                    b.HasIndex("TipId");
+
+                    b.ToTable("Kuhalo");
+                });
+
+            modelBuilder.Entity("hackhaton_API.Models.MotionSensor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("OsobaPala")
                         .HasColumnType("bit");
 
@@ -179,92 +196,6 @@ namespace hackhaton_API.Migrations
                     b.HasIndex("TipId");
 
                     b.ToTable("MotionSensor");
-                });
-
-            modelBuilder.Entity("hackhaton_API.Models.ProciscivacZraka", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("HomeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Naziv")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Stanje")
-=======
-                    b.Property<string>("Opis")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("StanjeStruje")
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TipId")
-                        .HasColumnType("int");
-
-<<<<<<< HEAD
-                    b.Property<int>("VlaznostZraka")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HomeId");
-
-                    b.HasIndex("TipId");
-
-                    b.ToTable("ProciscivacZraka");
-                });
-
-            modelBuilder.Entity("hackhaton_API.Models.RobotskiUsisivac", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("HomeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Naziv")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Stanje")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TipId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("VrijemeGasenja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("VrijemePaljenja")
-=======
-                    b.Property<DateTime?>("VrijemeGasenja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("VrijemePaljenja")
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HomeId");
-
-                    b.HasIndex("TipId");
-
-<<<<<<< HEAD
-                    b.ToTable("RobotskiUsisivac");
-=======
-                    b.ToTable("Kuhalo");
                 });
 
             modelBuilder.Entity("hackhaton_API.Models.Pegla", b =>
@@ -301,6 +232,39 @@ namespace hackhaton_API.Migrations
                     b.ToTable("Pegla");
                 });
 
+            modelBuilder.Entity("hackhaton_API.Models.ProciscivacZraka", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Stanje")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TipId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VlaznostZraka")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
+
+                    b.HasIndex("TipId");
+
+                    b.ToTable("ProciscivacZraka");
+                });
+
             modelBuilder.Entity("hackhaton_API.Models.Prozori", b =>
                 {
                     b.Property<int>("Id")
@@ -328,6 +292,42 @@ namespace hackhaton_API.Migrations
                     b.ToTable("Prozori");
                 });
 
+            modelBuilder.Entity("hackhaton_API.Models.RobotskiUsisivac", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Stanje")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TipId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("VrijemeGasenja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("VrijemePaljenja")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
+
+                    b.HasIndex("TipId");
+
+                    b.ToTable("RobotskiUsisivac");
+                });
+
             modelBuilder.Entity("hackhaton_API.Models.SenzorDima", b =>
                 {
                     b.Property<int>("Id")
@@ -352,7 +352,6 @@ namespace hackhaton_API.Migrations
                     b.HasIndex("TipId");
 
                     b.ToTable("SenzorDima");
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
                 });
 
             modelBuilder.Entity("hackhaton_API.Models.Tip", b =>
@@ -376,11 +375,7 @@ namespace hackhaton_API.Migrations
                     b.ToTable("Tip");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("hackhaton_API.Models.Tlakomjer", b =>
-=======
-            modelBuilder.Entity("hackhaton_API.Models.Vrata", b =>
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -395,27 +390,14 @@ namespace hackhaton_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
                     b.Property<int>("OtkucajiSrca")
                         .HasColumnType("int");
-=======
-                    b.Property<bool>("Stanje")
-                        .HasColumnType("bit");
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
 
                     b.Property<int>("TipId")
                         .HasColumnType("int");
 
-<<<<<<< HEAD
                     b.Property<int>("Tlak")
                         .HasColumnType("int");
-=======
-                    b.Property<DateTime?>("VrijemeOtkljucavanja")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("VrijemeZakljucavanja")
-                        .HasColumnType("datetime2");
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
 
                     b.HasKey("Id");
 
@@ -423,8 +405,43 @@ namespace hackhaton_API.Migrations
 
                     b.HasIndex("TipId");
 
-<<<<<<< HEAD
                     b.ToTable("Tlakomjer");
+                });
+
+            modelBuilder.Entity("hackhaton_API.Models.Vrata", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Stanje")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TipId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("VrijemeOtkljucavanja")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("VrijemeZakljucavanja")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
+
+                    b.HasIndex("TipId");
+
+                    b.ToTable("Vrata");
                 });
 
             modelBuilder.Entity("hackhaton_API.Models.Klima", b =>
@@ -444,12 +461,9 @@ namespace hackhaton_API.Migrations
                     b.Navigation("Home");
 
                     b.Navigation("Tip");
-=======
-                    b.ToTable("Vrata");
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
                 });
 
-            modelBuilder.Entity("hackhaton_API.Models.Korisnik_Home", b =>
+            modelBuilder.Entity("hackhaton_API.Models.Korisnik", b =>
                 {
                     b.HasOne("hackhaton_API.Models.Home", "Home")
                         .WithMany()
@@ -457,22 +471,10 @@ namespace hackhaton_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("hackhaton_API.Models.Korisnik", "Korisnik")
-                        .WithMany()
-                        .HasForeignKey("KorisnikId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Home");
-
-                    b.Navigation("Korisnik");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("hackhaton_API.Models.MotionSensor", b =>
-=======
             modelBuilder.Entity("hackhaton_API.Models.Kuhalo", b =>
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
                 {
                     b.HasOne("hackhaton_API.Models.Home", "Home")
                         .WithMany()
@@ -491,11 +493,26 @@ namespace hackhaton_API.Migrations
                     b.Navigation("Tip");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("hackhaton_API.Models.ProciscivacZraka", b =>
-=======
+            modelBuilder.Entity("hackhaton_API.Models.MotionSensor", b =>
+                {
+                    b.HasOne("hackhaton_API.Models.Home", "Home")
+                        .WithMany()
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hackhaton_API.Models.Tip", "Tip")
+                        .WithMany()
+                        .HasForeignKey("TipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+
+                    b.Navigation("Tip");
+                });
+
             modelBuilder.Entity("hackhaton_API.Models.Pegla", b =>
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
                 {
                     b.HasOne("hackhaton_API.Models.Home", "Home")
                         .WithMany()
@@ -514,11 +531,26 @@ namespace hackhaton_API.Migrations
                     b.Navigation("Tip");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("hackhaton_API.Models.RobotskiUsisivac", b =>
-=======
+            modelBuilder.Entity("hackhaton_API.Models.ProciscivacZraka", b =>
+                {
+                    b.HasOne("hackhaton_API.Models.Home", "Home")
+                        .WithMany()
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hackhaton_API.Models.Tip", "Tip")
+                        .WithMany()
+                        .HasForeignKey("TipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+
+                    b.Navigation("Tip");
+                });
+
             modelBuilder.Entity("hackhaton_API.Models.Prozori", b =>
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
                 {
                     b.HasOne("hackhaton_API.Models.Home", "Home")
                         .WithMany()
@@ -537,9 +569,25 @@ namespace hackhaton_API.Migrations
                     b.Navigation("Tip");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("hackhaton_API.Models.Tlakomjer", b =>
-=======
+            modelBuilder.Entity("hackhaton_API.Models.RobotskiUsisivac", b =>
+                {
+                    b.HasOne("hackhaton_API.Models.Home", "Home")
+                        .WithMany()
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hackhaton_API.Models.Tip", "Tip")
+                        .WithMany()
+                        .HasForeignKey("TipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+
+                    b.Navigation("Tip");
+                });
+
             modelBuilder.Entity("hackhaton_API.Models.SenzorDima", b =>
                 {
                     b.HasOne("hackhaton_API.Models.Home", "Home")
@@ -559,8 +607,26 @@ namespace hackhaton_API.Migrations
                     b.Navigation("Tip");
                 });
 
+            modelBuilder.Entity("hackhaton_API.Models.Tlakomjer", b =>
+                {
+                    b.HasOne("hackhaton_API.Models.Home", "Home")
+                        .WithMany()
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hackhaton_API.Models.Tip", "Tip")
+                        .WithMany()
+                        .HasForeignKey("TipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+
+                    b.Navigation("Tip");
+                });
+
             modelBuilder.Entity("hackhaton_API.Models.Vrata", b =>
->>>>>>> 0897e8c26822978391c193abf7aa54066769f4f4
                 {
                     b.HasOne("hackhaton_API.Models.Home", "Home")
                         .WithMany()

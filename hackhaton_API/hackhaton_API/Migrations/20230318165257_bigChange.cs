@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace hackhaton_API.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class bigChange : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,24 +26,6 @@ namespace hackhaton_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Korisnik",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Prezime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BrojTelefona = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Korisnik", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tip",
                 columns: table => new
                 {
@@ -58,27 +40,57 @@ namespace hackhaton_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Korisnik_Home",
+                name: "Korisnik",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HomeId = table.Column<int>(type: "int", nullable: false),
-                    KorisnikId = table.Column<int>(type: "int", nullable: false)
+                    Ime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Prezime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BrojTelefona = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HomeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Korisnik_Home", x => x.Id);
+                    table.PrimaryKey("PK_Korisnik", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Korisnik_Home_Home_HomeId",
+                        name: "FK_Korisnik_Home_HomeId",
+                        column: x => x.HomeId,
+                        principalTable: "Home",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Klima",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stanje = table.Column<bool>(type: "bit", nullable: false),
+                    Temperatura = table.Column<int>(type: "int", nullable: false),
+                    Mod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BrzinaPuhanja = table.Column<int>(type: "int", nullable: false),
+                    HomeId = table.Column<int>(type: "int", nullable: false),
+                    TipId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Klima", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Klima_Home_HomeId",
                         column: x => x.HomeId,
                         principalTable: "Home",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Korisnik_Home_Korisnik_KorisnikId",
-                        column: x => x.KorisnikId,
-                        principalTable: "Korisnik",
+                        name: "FK_Klima_Tip_TipId",
+                        column: x => x.TipId,
+                        principalTable: "Tip",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -115,6 +127,35 @@ namespace hackhaton_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MotionSensor",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PokretDetektovan = table.Column<bool>(type: "bit", nullable: false),
+                    OsobaPala = table.Column<bool>(type: "bit", nullable: false),
+                    HomeId = table.Column<int>(type: "int", nullable: false),
+                    TipId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MotionSensor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MotionSensor_Home_HomeId",
+                        column: x => x.HomeId,
+                        principalTable: "Home",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MotionSensor_Tip_TipId",
+                        column: x => x.TipId,
+                        principalTable: "Tip",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pegla",
                 columns: table => new
                 {
@@ -137,6 +178,35 @@ namespace hackhaton_API.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Pegla_Tip_TipId",
+                        column: x => x.TipId,
+                        principalTable: "Tip",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProciscivacZraka",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stanje = table.Column<bool>(type: "bit", nullable: false),
+                    VlaznostZraka = table.Column<int>(type: "int", nullable: false),
+                    HomeId = table.Column<int>(type: "int", nullable: false),
+                    TipId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProciscivacZraka", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProciscivacZraka_Home_HomeId",
+                        column: x => x.HomeId,
+                        principalTable: "Home",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProciscivacZraka_Tip_TipId",
                         column: x => x.TipId,
                         principalTable: "Tip",
                         principalColumn: "Id",
@@ -171,6 +241,36 @@ namespace hackhaton_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RobotskiUsisivac",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stanje = table.Column<bool>(type: "bit", nullable: false),
+                    VrijemePaljenja = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    VrijemeGasenja = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HomeId = table.Column<int>(type: "int", nullable: false),
+                    TipId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RobotskiUsisivac", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RobotskiUsisivac_Home_HomeId",
+                        column: x => x.HomeId,
+                        principalTable: "Home",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RobotskiUsisivac_Tip_TipId",
+                        column: x => x.TipId,
+                        principalTable: "Tip",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SenzorDima",
                 columns: table => new
                 {
@@ -191,6 +291,35 @@ namespace hackhaton_API.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SenzorDima_Tip_TipId",
+                        column: x => x.TipId,
+                        principalTable: "Tip",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tlakomjer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OtkucajiSrca = table.Column<int>(type: "int", nullable: false),
+                    Tlak = table.Column<int>(type: "int", nullable: false),
+                    HomeId = table.Column<int>(type: "int", nullable: false),
+                    TipId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tlakomjer", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tlakomjer_Home_HomeId",
+                        column: x => x.HomeId,
+                        principalTable: "Home",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tlakomjer_Tip_TipId",
                         column: x => x.TipId,
                         principalTable: "Tip",
                         principalColumn: "Id",
@@ -228,14 +357,19 @@ namespace hackhaton_API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Korisnik_Home_HomeId",
-                table: "Korisnik_Home",
+                name: "IX_Klima_HomeId",
+                table: "Klima",
                 column: "HomeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Korisnik_Home_KorisnikId",
-                table: "Korisnik_Home",
-                column: "KorisnikId");
+                name: "IX_Klima_TipId",
+                table: "Klima",
+                column: "TipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Korisnik_HomeId",
+                table: "Korisnik",
+                column: "HomeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Kuhalo_HomeId",
@@ -245,6 +379,16 @@ namespace hackhaton_API.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Kuhalo_TipId",
                 table: "Kuhalo",
+                column: "TipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MotionSensor_HomeId",
+                table: "MotionSensor",
+                column: "HomeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MotionSensor_TipId",
+                table: "MotionSensor",
                 column: "TipId");
 
             migrationBuilder.CreateIndex(
@@ -258,6 +402,16 @@ namespace hackhaton_API.Migrations
                 column: "TipId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProciscivacZraka_HomeId",
+                table: "ProciscivacZraka",
+                column: "HomeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProciscivacZraka_TipId",
+                table: "ProciscivacZraka",
+                column: "TipId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Prozori_HomeId",
                 table: "Prozori",
                 column: "HomeId");
@@ -268,6 +422,16 @@ namespace hackhaton_API.Migrations
                 column: "TipId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RobotskiUsisivac_HomeId",
+                table: "RobotskiUsisivac",
+                column: "HomeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RobotskiUsisivac_TipId",
+                table: "RobotskiUsisivac",
+                column: "TipId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SenzorDima_HomeId",
                 table: "SenzorDima",
                 column: "HomeId");
@@ -275,6 +439,16 @@ namespace hackhaton_API.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_SenzorDima_TipId",
                 table: "SenzorDima",
+                column: "TipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tlakomjer_HomeId",
+                table: "Tlakomjer",
+                column: "HomeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tlakomjer_TipId",
+                table: "Tlakomjer",
                 column: "TipId");
 
             migrationBuilder.CreateIndex(
@@ -292,25 +466,37 @@ namespace hackhaton_API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Korisnik_Home");
+                name: "Klima");
+
+            migrationBuilder.DropTable(
+                name: "Korisnik");
 
             migrationBuilder.DropTable(
                 name: "Kuhalo");
 
             migrationBuilder.DropTable(
+                name: "MotionSensor");
+
+            migrationBuilder.DropTable(
                 name: "Pegla");
+
+            migrationBuilder.DropTable(
+                name: "ProciscivacZraka");
 
             migrationBuilder.DropTable(
                 name: "Prozori");
 
             migrationBuilder.DropTable(
+                name: "RobotskiUsisivac");
+
+            migrationBuilder.DropTable(
                 name: "SenzorDima");
 
             migrationBuilder.DropTable(
-                name: "Vrata");
+                name: "Tlakomjer");
 
             migrationBuilder.DropTable(
-                name: "Korisnik");
+                name: "Vrata");
 
             migrationBuilder.DropTable(
                 name: "Home");
