@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
 
 namespace hackhaton_API.Models
 {
@@ -11,6 +10,7 @@ namespace hackhaton_API.Models
         public string Prezime { get; set; }
         public string BrojTelefona { get; set; }
         public string Mail { get; set; }
-
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
