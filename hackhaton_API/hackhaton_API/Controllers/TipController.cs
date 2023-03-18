@@ -56,6 +56,8 @@ namespace hackhaton_API.Controllers
                 })
                 .AsQueryable();
             return Ok(data.Take(100).ToList());
+
+             
         }
 
       
