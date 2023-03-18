@@ -8,9 +8,10 @@ namespace hackhaton_API.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Korisnik> Korisnik { get; set; }
-
         public DbSet<Home> Home { get; set; }
         public DbSet<Korisnik_Home> Korisnik_Home { get; set; }
+        public DbSet<Tip> Tip { get; set; }
+
 
 
 
