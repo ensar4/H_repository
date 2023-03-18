@@ -67,20 +67,34 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
         [HttpPost]
         public ActionResult Snimi([FromBody] KorisnikAddVM x)
         {
-            Korisnik? objekat;
+           
             Home? objekat2;
-
-            if (x.id == 0)
+            if(x.kucaId==0)
             {
-                objekat = new Korisnik();
-                _dbContext.Add(objekat);
                 objekat2 = new Home();
                 _dbContext.Add(objekat2);
             }
             else
             {
+              
+                objekat2 = _dbContext.Home.Find(x.kucaId);
+
+            }
+            objekat2.Id = x.kucaId;
+            objekat2.Adresa = x.adresaKuce;
+            objekat2.Naziv = x.nazivKuce;
+
+            Korisnik? objekat;
+            if (x.id == 0)
+            {
+                objekat = new Korisnik();
+                _dbContext.Add(objekat);
+               
+            }
+            else
+            {
                 objekat = _dbContext.Korisnik.Find(x.id);
-                objekat2 = _dbContext.Home.Find(x.id);
+               
                 
             }
 
@@ -92,9 +106,8 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
             objekat.Username = x.username;
             objekat.BrojTelefona = x.brojTelefona;
 
-            objekat2.Adresa = x.adresaKuce;
-            objekat2.Naziv = x.nazivKuce;
-            objekat2.Id = x.id;
+            
+           
 
             _dbContext.SaveChanges();
             return Ok();

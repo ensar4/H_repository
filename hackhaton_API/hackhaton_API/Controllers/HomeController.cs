@@ -20,7 +20,7 @@ namespace hackhaton_API.Controllers
 
 
         [HttpPost]
-        public Home Snimi([FromBody] HomeAddVM x)
+        public ActionResult<HomeGetVM> Snimi([FromBody] HomeAddVM x)
         {
             Home? objekat;
 
@@ -39,7 +39,10 @@ namespace hackhaton_API.Controllers
             objekat.Adresa = x.adresa;
 
             _dbContext.SaveChanges();
-            return objekat;
+
+            //var obj = _dbContext.Home.Where(h => h.Id == objekat.Id);
+
+            return Ok(objekat.Id);
         }
 
         [HttpGet]
