@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using hackhaton_API.Data;
 
@@ -11,9 +12,11 @@ using hackhaton_API.Data;
 namespace hackhaton_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230318114754_kuhalo")]
+    partial class kuhalo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,8 +125,9 @@ namespace hackhaton_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("StanjeStruje")
-                        .HasColumnType("bit");
+                    b.Property<string>("StanjeStruje")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TipId")
                         .HasColumnType("int");
@@ -162,33 +166,7 @@ namespace hackhaton_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("StanjeStruje")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TipId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HomeId");
-
-                    b.HasIndex("TipId");
-
-                    b.ToTable("Pegla");
-                });
-
-            modelBuilder.Entity("hackhaton_API.Models.Prozori", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("HomeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Naziv")
+                    b.Property<string>("StanjeStruje")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -201,7 +179,7 @@ namespace hackhaton_API.Migrations
 
                     b.HasIndex("TipId");
 
-                    b.ToTable("Prozori");
+                    b.ToTable("Pegla");
                 });
 
             modelBuilder.Entity("hackhaton_API.Models.Tip", b =>
@@ -264,25 +242,6 @@ namespace hackhaton_API.Migrations
                 });
 
             modelBuilder.Entity("hackhaton_API.Models.Pegla", b =>
-                {
-                    b.HasOne("hackhaton_API.Models.Home", "Home")
-                        .WithMany()
-                        .HasForeignKey("HomeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("hackhaton_API.Models.Tip", "Tip")
-                        .WithMany()
-                        .HasForeignKey("TipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Home");
-
-                    b.Navigation("Tip");
-                });
-
-            modelBuilder.Entity("hackhaton_API.Models.Prozori", b =>
                 {
                     b.HasOne("hackhaton_API.Models.Home", "Home")
                         .WithMany()

@@ -11,8 +11,8 @@ using hackhaton_API.Data;
 namespace hackhaton_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230318104237_class")]
-    partial class @class
+    [Migration("20230318114550_pegla")]
+    partial class pegla
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -105,6 +105,62 @@ namespace hackhaton_API.Migrations
                     b.ToTable("Korisnik_Home");
                 });
 
+            modelBuilder.Entity("hackhaton_API.Models.Pegla", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HomeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StanjeStruje")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HomeId");
+
+                    b.HasIndex("TipId");
+
+                    b.ToTable("Pegla");
+                });
+
+            modelBuilder.Entity("hackhaton_API.Models.Tip", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tip");
+                });
+
             modelBuilder.Entity("hackhaton_API.Models.Korisnik_Home", b =>
                 {
                     b.HasOne("hackhaton_API.Models.Home", "Home")
@@ -122,6 +178,25 @@ namespace hackhaton_API.Migrations
                     b.Navigation("Home");
 
                     b.Navigation("Korisnik");
+                });
+
+            modelBuilder.Entity("hackhaton_API.Models.Pegla", b =>
+                {
+                    b.HasOne("hackhaton_API.Models.Home", "Home")
+                        .WithMany()
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("hackhaton_API.Models.Tip", "Tip")
+                        .WithMany()
+                        .HasForeignKey("TipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+
+                    b.Navigation("Tip");
                 });
 #pragma warning restore 612, 618
         }

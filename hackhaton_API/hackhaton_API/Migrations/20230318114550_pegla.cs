@@ -5,70 +5,73 @@
 namespace hackhaton_API.Migrations
 {
     /// <inheritdoc />
-    public partial class @class : Migration
+    public partial class pegla : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Home",
+                name: "Tip",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Adresa = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Opis = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Home", x => x.Id);
+                    table.PrimaryKey("PK_Tip", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Korisnik_Home",
+                name: "Pegla",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Naziv = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Opis = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StanjeStruje = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HomeId = table.Column<int>(type: "int", nullable: false),
-                    KorisnikId = table.Column<int>(type: "int", nullable: false)
+                    TipId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Korisnik_Home", x => x.Id);
+                    table.PrimaryKey("PK_Pegla", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Korisnik_Home_Home_HomeId",
+                        name: "FK_Pegla_Home_HomeId",
                         column: x => x.HomeId,
                         principalTable: "Home",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Korisnik_Home_Korisnik_KorisnikId",
-                        column: x => x.KorisnikId,
-                        principalTable: "Korisnik",
+                        name: "FK_Pegla_Tip_TipId",
+                        column: x => x.TipId,
+                        principalTable: "Tip",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Korisnik_Home_HomeId",
-                table: "Korisnik_Home",
+                name: "IX_Pegla_HomeId",
+                table: "Pegla",
                 column: "HomeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Korisnik_Home_KorisnikId",
-                table: "Korisnik_Home",
-                column: "KorisnikId");
+                name: "IX_Pegla_TipId",
+                table: "Pegla",
+                column: "TipId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Korisnik_Home");
+                name: "Pegla");
 
             migrationBuilder.DropTable(
-                name: "Home");
+                name: "Tip");
         }
     }
 }
