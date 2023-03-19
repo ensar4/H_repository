@@ -40,7 +40,7 @@ namespace hackhaton_API.Controllers
             objekat.VrijemeZakljucavanja = x.VrijemeZakljucavanja;
             objekat.VrijemeOtkljucavanja = x.VrijemeOtkljucavanja;
             objekat.HomeId = x.HomeId;
-            objekat.TipId = x.TipId;
+
 
             _dbContext.SaveChanges();
             return Ok(objekat);

@@ -39,7 +39,7 @@ namespace hackhaton_API.Controllers
             objekat.PokretDetektovan = x.pokretDetektovan;
             objekat.OsobaPala = x.osobaPala;
             objekat.HomeId = x.homeId;
-            objekat.TipId = x.tipId;
+
 
             _dbContext.SaveChanges();
             return objekat;
@@ -57,7 +57,7 @@ namespace hackhaton_API.Controllers
                     pokretDetektovan = s.PokretDetektovan,
                     osobaPala = s.OsobaPala,
                     homeId = s.HomeId,
-                    tipId = s.TipId
+
 
                 })
                 .AsQueryable();

@@ -37,7 +37,7 @@ namespace hackhaton_API.Controllers
             objekat.Id = x.Id;
             objekat.Stanje = x.Stanje;
             objekat.HomeId = x.HomeId;
-            objekat.TipId = x.TipId;
+           
 
             _dbContext.SaveChanges();
             return Ok(objekat);

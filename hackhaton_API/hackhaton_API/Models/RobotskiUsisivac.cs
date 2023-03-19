@@ -17,9 +17,6 @@ namespace hackhaton_API.Models
         public Home Home { get; set; }
         public int HomeId { get; set; }
 
-        [ForeignKey("TipId")]
-        public Tip Tip { get; set; }
-        public int TipId { get; set; }
 
 
 
