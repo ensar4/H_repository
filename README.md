@@ -24,3 +24,10 @@ Potrebno je izvršiti dodavanje uređaja kako bi testiranje aplikacije bilo mogu
 Na početnoj stranici se nalazi brzi pristup i uvid u osnovne funkcionalnosti/informacije. 
 Nakon dodavanja uređaja omogućen je odabir uređaja te regulisanje postavki za svaki pojedini uređaj. Naprimjer gašenje, paljenje I upravljanje uređajima.  
 
+<!-- kontakt -->
+## Kontakt
+Link projekta: https://github.com/ensar4/H_repository
+E-mail developera:
+- ensar-lizde@edu.fit.ba
+- maric.lejla@edu.fit.ba
+- eldar.sose@edu.fit.ba
