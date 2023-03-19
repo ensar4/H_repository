@@ -25,7 +25,10 @@ Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na
    ```
 4. Pokrenuti aplikaciju na backendu u programu Microsoft Visual-Studio.
 5. Pokrenuti front-end aplikacije pomoću Visual-Studio Code obavezno preko Chrome pretraživača.
-6. Otići na main-dart koji se nalazi u lib folderu te klikom na start u gornjem desnom uglu pokrenuti aplikaciju.
+6. Otići na main-dart koji se nalazi u lib folderu te klikom na start u gornjem desnom uglu pokrenuti aplikaciju ili komandom u terminalu "flutter run".
+```sh
+   flutter run
+   ```
 
 <!-- upotreba -->
 ## Upotreba:
