@@ -12,16 +12,16 @@ Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na
 
 <!-- Pokretanje -->
 ## Pokretanje:
-1. Preuzimanje projekta sa Github-a
+1. Preuzeti projekat sa Github-a
  ```sh
    git clone https://github.com/ensar4/H_repository
    ```
 2. Pokrenuti backend u Microsoft Visual-Studio programu. 
-3. Izvršiti komandu "add-migration" u package-manager console i dodati migracije 
+3. Izvršiti komandu "add-migration" u package-manager console i dodati migracije.
 ```sh
    add-migration
    ```
-4. Izvršiti komandu "update-database":
+4. Izvršiti komandu "update-database".
 ```sh
    update-database
    ```
