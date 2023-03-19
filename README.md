@@ -2,7 +2,11 @@
 <br />
 
 ## O projektu
-Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na brigu i skrb o dementnim osobama. 
+Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na brigu i skrb o dementnim i starim osobama. 
+
+Plan kojim bi se u potpunosti realizovala nasa aplikacija je spajanje mikrokontrolera sa uredjajima i na taj nacin bi se vrsila komunikacija sa istim. U planu je mobilna aplikacija kojom bi se olaksala konekcija na uredjaje skeniranjem QR koda, takodjer, mobilnom aplikacijom bi se olaksala interakcija sa pametnim uređajima. 
+
+
 
 ![My Image](iCare.jpg)
 <!-- Programi -->
