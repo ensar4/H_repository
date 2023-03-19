@@ -10,11 +10,21 @@ Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na
 
 <!-- Pokretanje -->
 ## Pokretanje:
-1. Preuzimanje projekta sa Github-a te pokretanje backend-a u Microsoft Visual-Studio programu. 
-2. Izvršiti komandu "add-migration" u package-manager console i dodati migracije 
-3. Izvršiti komandu "update-database".
-4. Pokrenuti aplikaciju na backendu a zatim i na front-endu preko Visual-Studio Code.
-5. Otići na main-dart koji se nalazi u lib folderu te klikom na start u gornjem desnom uglu pokrenuti aplikaciju.
+1. Preuzimanje projekta sa Github-a
+ ```sh
+   git clone https://github.com/ensar4/H_repository
+   ```
+3. Pokrenuti backend u Microsoft Visual-Studio programu. 
+4. Izvršiti komandu "add-migration" u package-manager console i dodati migracije 
+```sh
+   add-migration
+    ```
+6. Izvršiti komandu "update-database":
+```sh
+   update-database
+    ```
+7. Pokrenuti aplikaciju na backendu a zatim i na front-endu preko Visual-Studio Code.
+8. Otići na main-dart koji se nalazi u lib folderu te klikom na start u gornjem desnom uglu pokrenuti aplikaciju.
 
 <!-- upotreba -->
 ## Upotreba:
