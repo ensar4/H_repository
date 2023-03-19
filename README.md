@@ -27,6 +27,7 @@ Nakon dodavanja uređaja omogućen je odabir uređaja te regulisanje postavki za
 <!-- kontakt -->
 ## Kontakt
 Link projekta: https://github.com/ensar4/H_repository
+<br />
 E-mail developera:
 - ensar.lizde@edu.fit.ba
 - maric.lejla@edu.fit.ba
