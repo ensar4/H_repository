@@ -7,7 +7,7 @@ Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na
 <!-- Programi -->
 ### Programi i programski jezici korišteni za izgradnju aplikacije:
 - .NET CORE (C#)
-- Flutter
+- Flutter (Dart)
 
 <!-- Pokretanje -->
 ## Pokretanje:
