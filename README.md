@@ -3,7 +3,7 @@
 ## About the project
 Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na brigu i skrb o dementnim osobama. 
 
-## Programi i programski jezici korišteni za izgradnju aplikacije:
+### Programi i programski jezici korišteni za izgradnju aplikacije:
 .NET CORE (C#)
 Flutter
 
