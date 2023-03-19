@@ -64,10 +64,30 @@ namespace hackhaton_API.Controllers
                 .AsQueryable();
             return Ok(data.Take(100).ToList());
         }
+		[HttpGet]
+		public ActionResult GetByHouse(int? homeId)
+		{
+            var data = _dbContext.Klima
+                .OrderBy(s => s.Id).
+                Where(s => s.HomeId == homeId)
+				.Select(s => new KlimaGetVM
+				{
+					id = s.Id,
+					naziv = s.Naziv,
+					stanje = s.Stanje,
+					mod = s.Mod,
+					brzinaPuhanja = s.BrzinaPuhanja,
+					temperatura = s.Temperatura
 
-      
+				})
+				.AsQueryable();
+			return Ok(data.Take(100).ToList());
+		}
 
-        [HttpPost("{id}")]
+
+
+
+		[HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
             Klima? obj = _dbContext.Klima.Find(id);

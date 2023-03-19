@@ -87,7 +87,6 @@ namespace hackhaton_API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BrojTelefona")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HomeId")
@@ -254,6 +253,9 @@ namespace hackhaton_API.Migrations
                     b.Property<string>("Naziv")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("otvoren")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

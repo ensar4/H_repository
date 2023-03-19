@@ -91,7 +91,6 @@ namespace FIT_Api_Example.Modul0_Autentifikacija.Controllers
             objekat.Mail = x.mail;
             objekat.Password = x.password;
             objekat.Username = x.username;
-            objekat.BrojTelefona = x.brojTelefona;
             objekat.HomeId=x.kucaId;
 
           

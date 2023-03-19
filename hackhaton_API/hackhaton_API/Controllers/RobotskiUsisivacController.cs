@@ -40,13 +40,31 @@ namespace hackhaton_API.Controllers
             objekat.VrijemePaljenja = x.vrijemePaljenja;
             objekat.VrijemeGasenja = x.vrijemeGasenja;
             objekat.HomeId = x.homeId;
-  
 
             _dbContext.SaveChanges();
             return objekat;
         }
 
-        [HttpGet]
+		[HttpGet]
+		public ActionResult GetByHouse(int? homeId)
+		{
+			var data = _dbContext.RobotskiUsisivac
+				.OrderBy(s => s.Id).
+				Where(s => s.HomeId == homeId)
+				.Select(s => new RobotskiUsisivacGetVM
+				{
+					id = s.Id,
+					naziv = s.Naziv,
+					stanje = s.Stanje,
+					vrijemePaljenja = s.VrijemePaljenja,
+					vrijemeGasenja = s.VrijemeGasenja
+
+				})
+				.AsQueryable();
+			return Ok(data.Take(100).ToList());
+		}
+
+		[HttpGet]
         public ActionResult GetAll()
         {
             var data = _dbContext.RobotskiUsisivac

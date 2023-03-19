@@ -9,12 +9,12 @@ namespace hackhaton_API.Models
         [Key]
         public int Id { get; set; }
         public string Naziv { get; set; }
+        public bool otvoren { get; set; }
       
 
         [ForeignKey("HomeId")]
         public Home Home { get; set; }
         public int HomeId { get; set; }
-
 
 
 

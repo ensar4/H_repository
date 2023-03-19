@@ -43,8 +43,25 @@ namespace hackhaton_API.Controllers
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
+		[HttpGet]
+		public ActionResult GetByHouse(int? homeId)
+		{
+			var data = _dbContext.Pegla
+				.OrderBy(s => s.Id).
+				Where(s => s.HomeId == homeId)
+				.Select(s => new PeglaGetVM
+				{
+					Id = s.Id,
+					Opis = s.Opis,
+					Naziv = s.Naziv,
+					StanjeStruje = s.StanjeStruje
 
-        [HttpGet]
+				})
+				.AsQueryable();
+			return Ok(data.Take(100).ToList());
+		}
+
+		[HttpGet]
         public ActionResult GetAll()
         {
             var data = _dbContext.Pegla

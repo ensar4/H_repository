@@ -41,12 +41,29 @@ namespace hackhaton_API.Controllers
             objekat.VrijemeOtkljucavanja = x.VrijemeOtkljucavanja;
             objekat.HomeId = x.HomeId;
 
-
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
 
-        [HttpGet]
+		[HttpGet]
+		public ActionResult GetByHouse(int? homeId)
+		{
+			var data = _dbContext.Vrata
+				.OrderBy(s => s.Id).
+				Where(s => s.HomeId == homeId)
+				.Select(s => new VrataGetVM
+				{
+					Id = s.Id,
+					Naziv = s.Naziv,
+					Stanje = s.Stanje,
+					VrijemeOtkljucavanja = s.VrijemeOtkljucavanja,
+					VrijemeZakljucavanja = s.VrijemeZakljucavanja
+				})
+				.AsQueryable();
+			return Ok(data.Take(100).ToList());
+		}
+
+		[HttpGet]
         public ActionResult GetAll()
         {
             var data = _dbContext.Vrata

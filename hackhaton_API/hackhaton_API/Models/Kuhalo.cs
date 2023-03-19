@@ -18,7 +18,6 @@ namespace hackhaton_API.Models
         public Home Home { get; set; }
         public int HomeId { get; set; }
 
-    
 
 
     }

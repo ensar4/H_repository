@@ -40,7 +40,6 @@ namespace hackhaton_API.Controllers
             objekat.Tlak = x.tlak;
             objekat.HomeId = x.homeId;
 
-
             _dbContext.SaveChanges();
             return objekat;
         }

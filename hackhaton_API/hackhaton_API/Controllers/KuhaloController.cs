@@ -42,7 +42,6 @@ namespace hackhaton_API.Controllers
             objekat.VrijemeGasenja = x.VrijemeGasenja;
             objekat.HomeId = x.HomeId;
 
-
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
@@ -65,9 +64,26 @@ namespace hackhaton_API.Controllers
             return Ok(data.Take(100).ToList());
         }
 
-      
+		[HttpGet]
+		public ActionResult GetByHouse(int? homeId)
+		{
+			var data = _dbContext.Kuhalo
+				.OrderBy(s => s.Id).
+				Where(s => s.HomeId == homeId)
+				.Select(s => new KuhaloGetVM
+				{
+					Opis = s.Opis,
+					StanjeStruje = s.StanjeStruje,
+					Naziv = s.Naziv,
+					VrijemeGasenja = s.VrijemeGasenja,
+					VrijemePaljenja = s.VrijemePaljenja
 
-        [HttpPost("{id}")]
+				})
+				.AsQueryable();
+			return Ok(data.Take(100).ToList());
+		}
+
+		[HttpPost("{id}")]
         public ActionResult Delete(int id)
         {
             Kuhalo? obj = _dbContext.Kuhalo.Find(id);

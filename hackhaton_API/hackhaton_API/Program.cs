@@ -1,7 +1,7 @@
 using hackhaton_API.Data;
 using Microsoft.EntityFrameworkCore;
 
-
+var AllowAll = "AllowAll";
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false)
@@ -9,6 +9,13 @@ var config = new ConfigurationBuilder()
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowAll, policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    });
+});
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(config.GetConnectionString("db1")));
 
@@ -32,13 +39,7 @@ app.UseStaticFiles();
 
 
 
-app.UseCors(
-    options => options
-        .SetIsOriginAllowed(x => _ = true)
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials()
-); //This needs to set everything allowed
+app.UseCors(AllowAll); //This needs to set everything allowed
 
 
 

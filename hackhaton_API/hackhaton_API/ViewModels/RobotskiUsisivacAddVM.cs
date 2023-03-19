@@ -8,6 +8,7 @@
         public DateTime vrijemePaljenja { get; set; }
         public DateTime vrijemeGasenja { get; set; }
 
-
+        public int kucaId { get; set; }
+        public int tipId { get; set; }
     }
 }

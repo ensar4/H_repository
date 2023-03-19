@@ -36,14 +36,31 @@ namespace hackhaton_API.Controllers
 
             objekat.Id = x.Id;
             objekat.Naziv = x.Naziv;
+            objekat.otvoren = x.otvoren;
             objekat.HomeId = x.HomeId;
- 
 
             _dbContext.SaveChanges();
             return Ok(objekat);
         }
 
-        [HttpGet]
+
+		[HttpGet]
+		public ActionResult GetByHouse(int? homeId)
+		{
+			var data = _dbContext.Prozori
+				.OrderBy(s => s.Id).
+				Where(s => s.HomeId == homeId)
+				.Select(s => new ProzoriGetVM
+				{
+					Id = s.Id,
+					Naziv = s.Naziv,
+                    otvoren = s.otvoren
+
+				})
+				.AsQueryable();
+			return Ok(data.Take(100).ToList());
+		}
+		[HttpGet]
         public ActionResult GetAll()
         {
             var data = _dbContext.Prozori
