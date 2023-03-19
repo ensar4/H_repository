@@ -24,7 +24,7 @@ Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na
    update-database
    ```
 4. Pokrenuti aplikaciju na backendu u programu Microsoft Visual-Studio.
-5. Pokrenuti front-end aplikacije pomoću Visual-Studio Code obavezno preko <b />Chrome pretraživača.
+5. Pokrenuti front-end aplikacije pomoću Visual-Studio Code obavezno preko <b />Chrome <b /> pretraživača.
 6. Otići na main-dart koji se nalazi u lib folderu te klikom na start u gornjem desnom uglu pokrenuti aplikaciju.
 
 <!-- upotreba -->
