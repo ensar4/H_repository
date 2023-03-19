@@ -4,6 +4,7 @@
 ## O projektu
 Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na brigu i skrb o dementnim osobama. 
 
+![My Image](iCare.jpg)
 <!-- Programi -->
 ### Programi i programski jezici korišteni za izgradnju aplikacije:
 - .NET CORE (C#)
