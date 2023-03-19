@@ -1,6 +1,6 @@
 # iCare
-</ br>
-</ br>
+<br />
+<br />
  
 ## About the project
 Aplikacija se bavi olaksanjem procesa automatizacije pametne kuce s naglaskom na brigu i skrb o dementnim osobama. 
