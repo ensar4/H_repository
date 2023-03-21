@@ -1,4 +1,4 @@
-# iCare
+# iCare - pomoć porodicama sa starim i iznemoglim članovima porodice
 <br />
 
 ## O projektu
